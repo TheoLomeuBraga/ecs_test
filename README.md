@@ -58,14 +58,14 @@ To create custom components, follow these steps:
 
     ```cpp
     struct ecs_component
-{
-    void (*add)(size_t, std::any);
-    bool (*have)(size_t);
-    void (*run)(size_t);
-    void (*run_components)();
-    void (*remove)(size_t);
-};
-```
+    {
+        void (*add)(size_t, std::any);
+        bool (*have)(size_t);
+        void (*run)(size_t);
+        void (*run_components)();
+        void (*remove)(size_t);
+    };
+    ```
 
 2. Implement the component functions. These functions should manipulate the component's data associated with entities.
 
