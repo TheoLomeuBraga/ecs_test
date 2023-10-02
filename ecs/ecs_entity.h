@@ -13,6 +13,7 @@ struct ecs_component
     bool (*have)(size_t);
 
     void (*run)(size_t);
+    void (*run_components)();
 
     void (*remove)(size_t);
 };
@@ -69,6 +70,14 @@ void run_entity(size_t entity)
         {
             p.second.run(entity);
         }
+    }
+}
+
+void run_components()
+{
+    for (std::pair<std::string, struct ecs_component> p : ecs_components_registerd)
+    {
+        p.second.run_components();
     }
 }
 

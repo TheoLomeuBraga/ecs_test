@@ -5,6 +5,7 @@
         "string": "cpp",
         "ostream": "cpp",
         "vector": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "set": "cpp"
     }
 }
