@@ -20,7 +20,7 @@ To use this library, follow these steps:
     register_name_component();
     ```
 
-3. Register Components: Register any custom components you want to use with the ECS system by calling their respective registration functions. For example:
+3. Register Components: Register any custom components you want to use with the ECS system by calling the `new_entity` functions. For example:
     ```cpp
     size_t entity = new_entity();
     ```
@@ -30,7 +30,7 @@ To use this library, follow these steps:
     add_component(entity, "name", std::string("theo"));
     ```
 
-4. Removing Components: Remove components from entities using the remove_component function:
+4. Removing Components: Remove components from entities using the `remove_component` function:
     ```cpp
     remove_component(entity, "name");
     ```
@@ -45,7 +45,7 @@ To use this library, follow these steps:
     run_components();
     ```
 
-7. Cleaning Up Entities: To delete entities and their associated components, use the delete_entity function. It will remove all components associated with the entity and free its ID.
+7. Cleaning Up Entities: To delete entities and their associated components, use the `delete_entity` function. It will remove all components associated with the entity and free its ID.
     ```cpp
     delete_entity(entity);
     ```
