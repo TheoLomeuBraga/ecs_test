@@ -12,3 +12,8 @@ To use this library, follow these steps:
     ```cpp
     #include "ecs_entity.h"
     #include "ecs_name.h"
+
+1.Register Components: Register any custom components you want to use with the ECS system by calling their respective registration functions. For example:
+    ```cpp
+    // Example registration of a 'name' component
+    register_name_component();
