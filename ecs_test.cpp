@@ -6,6 +6,8 @@
 
 //compile comand
 //g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_components
+//./ecs_test
+
 int main() {
 
     //register components
