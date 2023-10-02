@@ -49,3 +49,24 @@ To use this library, follow these steps:
     ```cpp
     delete_entity(entity);
     ```
+
+## Custom Components
+
+To create custom components, follow these steps:
+
+1. Define the component structure with the necessary functions. For example:
+
+    ```cpp
+    struct ecs_component
+{
+    void (*add)(size_t, std::any);
+    bool (*have)(size_t);
+    void (*run)(size_t);
+    void (*run_components)();
+    void (*remove)(size_t);
+};
+```
+
+2. Implement the component functions. These functions should manipulate the component's data associated with entities.
+
+3. Register the custom component using the `ecs_components_registerd` map and the `register_name_component` function as an example.
