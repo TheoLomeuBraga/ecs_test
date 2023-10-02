@@ -20,7 +20,8 @@ struct ecs_component
 
 std::unordered_map<std::string, struct ecs_component> ecs_components_registerd;
 
-std::set<size_t> entityes_set = {};
+std::set<size_t> entityes_set = {},free_entityes = {};
+size_t next_entity_id = 1;
 
 size_t find_free_entity()
 {
@@ -38,9 +39,16 @@ size_t find_free_entity()
 
 size_t new_entity()
 {
-    size_t fe = find_free_entity();
-    entityes_set.insert(fe);
-    return fe;
+    if (!free_entityes.empty())
+    {
+        size_t id = *free_entityes.begin();
+        free_entityes.erase(id);
+        return id;
+    }
+    else
+    {
+        return next_entity_id++;
+    }
 }
 
 void add_component(size_t entity, std::string component_name, std::any arg)
@@ -83,6 +91,7 @@ void run_components()
 
 void delete_entity(size_t entity)
 {
+    free_entityes.insert(entity);
     for (std::pair<std::string, struct ecs_component> p : ecs_components_registerd)
     {
         if (p.second.have(entity))
