@@ -7,8 +7,8 @@ This README provides documentation to an test library called ecs_test, a C++ lib
 ## Getting Started
 
 To use this library, follow these steps:
-
-    1. Include the Library: Include the necessary headers at the beginning of your C++ files where you plan to use the ECS system.
+1. Include the Library: Include the necessary headers at the beginning of your C++ files where you plan to use the ECS system.
+    
     ```cpp
     #include "ecs_entity.h"
     #include "ecs_name.h"
