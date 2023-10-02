@@ -34,3 +34,12 @@ void register_name_component(){
 std::string* get_name(size_t id){
     return &names_map[id];
 }
+
+size_t search_entity_by_name(std::string name){
+    for(std::pair<size_t,std::string> p : names_map){
+        if(p.second == name){
+            return p.first;
+        }
+    }
+    return 0;
+}
