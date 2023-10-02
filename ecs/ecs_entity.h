@@ -92,3 +92,10 @@ void delete_entity(size_t entity)
     }
     entityes_set.erase(entity);
 }
+
+void clean_components()
+{
+    for(size_t i : entityes_set){
+        delete_entity(i);
+    }
+}
