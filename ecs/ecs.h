@@ -6,7 +6,6 @@
 #include <set>
 #include <any>
 
-
 #define entity size_t
 
 struct ecs_system
