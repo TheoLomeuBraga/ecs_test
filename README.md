@@ -130,6 +130,12 @@ g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems
 ./ecs_test
 ```
 
+or
+
+```sh
+g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems ; ./ecs_test
+```
+
 ```cpp
 
 #include <iostream>
