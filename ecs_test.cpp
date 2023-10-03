@@ -30,5 +30,7 @@ int main() {
     remove_component(entity,"name");
     std::cout << "entity have name " << have_component(entity,"name") << std::endl;
 
+    delete_entity(entity);
+
     return 0;
 }
