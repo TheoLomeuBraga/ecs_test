@@ -124,18 +124,6 @@ entity search_entity_by_name(std::string name){
 
 ## Usage Example
 
-compile comand
-```sh
-g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems
-./ecs_test
-```
-
-or
-
-```sh
-g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems ; ./ecs_test
-```
-
 ```cpp
 
 #include <iostream>
@@ -171,4 +159,16 @@ int main() {
 
     return 0;
 }
+```
+
+compile comand
+```sh
+g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems
+./ecs_test
+```
+
+or
+
+```sh
+g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems ; ./ecs_test
 ```
