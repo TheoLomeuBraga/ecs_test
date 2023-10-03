@@ -10,7 +10,7 @@ To use this library, follow these steps:
 1. Include the Library: Include the necessary headers at the beginning of your C++ files where you plan to use the ECS system.
     
     ```cpp
-    #include "ecs_entity.h"
+    #include "ecs.h"
     #include "ecs_name.h"
     ```
 
@@ -22,7 +22,7 @@ To use this library, follow these steps:
 
 3. Register Components: Register any custom components you want to use with the ECS system by calling the `new_entity` functions. For example:
     ```cpp
-    size_t entity = new_entity();
+    entity entity = new_entity();
     ```
 
     Adding Components: Add components to entities using the `add_component` function. Provide the entity's ID, the component's name, and the component's data.
@@ -57,61 +57,61 @@ To create custom components, follow these steps:
 1. Define the component structure with the necessary functions. For example:
 
     ```cpp
-    struct ecs_component
+    struct ecs_system
     {
-        void (*add)(size_t, std::any);
-        bool (*have)(size_t);
-        void (*run)(size_t);
+        void (*add)(entity, std::any);
+        bool (*have)(entity);
+        void (*run)(entity);
         void (*run_components)();
-        void (*remove)(size_t);
+        void (*remove)(entity);
     };
     ```
 
 2. Implement the component functions. These functions should manipulate the component's data associated with entities.
 
-3. Register the custom component using the `ecs_components_registerd` map and the `register_name_component` function as an example.
+3. Register the custom component using the `ecs_systems_registerd` map and the `register_name_component` function as an example.
 
 ## Custom Component Example
 ```cpp
 #pragma once 
 
-#include "ecs_entity.h"
+#include "ecs.h"
 #include <vector>
 #include <string>
 #include <map>
 #include <set>
 
-std::map<size_t,std::string> names_map;
+std::map<entity,std::string> names_map;
 
-void add_name(size_t id,std::any data){
-    names_map.insert(std::pair<size_t,std::string>(id,std::any_cast<std::string>(data)));
+void add_name(entity id,std::any data){
+    names_map.insert(std::pair<entity,std::string>(id,std::any_cast<std::string>(data)));
 }
 
-bool have_name(size_t id){
+bool have_name(entity id){
     if(names_map.find(id) != names_map.end()){
         return true;
     }
     return false;
 }
 
-void run_name(size_t id){}
+void run_name(entity id){}
 
 void run_names(){}
 
-void remove_name (size_t id){
+void remove_name (entity id){
     names_map.erase(id);
 }
 
 void register_name_component(){
-    ecs_components_registerd.insert(std::pair<std::string,struct ecs_component>("name",{add_name,have_name,run_name,run_names,remove_name}));
+    ecs_systems_registerd.insert(std::pair<std::string,struct ecs_system>("name",{add_name,have_name,run_name,run_names,remove_name}));
 }
 
-std::string* get_name(size_t id){
+std::string* get_name(entity id){
     return &names_map[id];
 }
 
-size_t search_entity_by_name(std::string name){
-    for(std::pair<size_t,std::string> p : names_map){
+entity search_entity_by_name(std::string name){
+    for(std::pair<entity,std::string> p : names_map){
         if(p.second == name){
             return p.first;
         }
@@ -119,39 +119,49 @@ size_t search_entity_by_name(std::string name){
     return 0;
 }
 
+
 ```
 
 ## Usage Example
+
+compile comand
+```sh
+g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_systems
+./ecs_test
+```
+
 ```cpp
 
 #include <iostream>
-#include "ecs_entity.h"
+#include "ecs.h"
 #include "ecs_name.h"
 
 
-//compile comand
-//g++ ecs_test.cpp -o ecs_test -I./ecs -I./ecs/ecs_components
+
+
 int main() {
 
     //register components
     register_name_component();
 
     //create entity
-    size_t entity = new_entity();
-    std::cout << "entity id " << entity << std::endl;
+    entity ent = new_entity();
+    std::cout << "entity id " << ent << std::endl;
 
     //add name
-    add_component(entity,"name",std::string("theo"));
-    std::cout << "entity name " << *get_name(entity) << std::endl;
-    std::cout << "entity have name " << have_component(entity,"name") << std::endl;
+    add_component(ent,"name",std::string("theo"));
+    std::cout << "entity name " << *get_name(ent) << std::endl;
+    std::cout << "entity have name " << have_component(ent,"name") << std::endl;
 
     //change name
-    *get_name(entity) = std::string("ricardo");
-    std::cout << "entity name " << *get_name(entity) << std::endl;
+    names_map[ent] = "ricardo";
+    std::cout << "entity name " << *get_name(ent) << std::endl;
 
     //remove name
-    remove_component(entity,"name");
-    std::cout << "entity have name " << have_component(entity,"name") << std::endl;
+    remove_component(ent,"name");
+    std::cout << "entity have name " << have_component(ent,"name") << std::endl;
+
+    delete_entity(ent);
 
     return 0;
 }
